@@ -6,6 +6,11 @@ include:
   - resources/*.yml
   - resources/*/*.yml
 
+# Variable declarations. These variables are assigned in the dev/prod targets below.
+variables:
+  catalog:
+    description: The catalog to use
+
 targets:
   # The 'dev' target, for development purposes. This target is the default.
   dev:
@@ -13,6 +18,8 @@ targets:
     default: true
     workspace:
       host: https://dbc-b2c987d0-9382.cloud.databricks.com
+    variables:
+      catalog: agriculture_lkh_dev
 
   # The 'prod' target, used for production deployment.
   prod:
@@ -21,7 +28,12 @@ targets:
       host: https://dbc-b2c987d0-9382.cloud.databricks.com
       # We always use /Users/abhijeet.waghmare@ltts.com for all resources to make sure we only have a single copy.
       root_path: /Users/abhijeet.waghmare@ltts.com/.bundle/${bundle.name}/${bundle.target}
-    run_as:
-      # This runs as abhijeet.waghmare@ltts.com in production. We could also use a service principal here,
-      # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
-      user_name: abhijeet.waghmare@ltts.com
+    variables:
+      catalog: agriculture_lkh_prod
+    # run_as:
+    #   # This runs as abhijeet.waghmare@ltts.com in production. We could also use a service principal here,
+    #   # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
+    #   user_name: abhijeet.waghmare@ltts.com
+    permissions:
+      - user_name: abhijeet.waghmare@ltts.com
+        level: CAN_MANAGE

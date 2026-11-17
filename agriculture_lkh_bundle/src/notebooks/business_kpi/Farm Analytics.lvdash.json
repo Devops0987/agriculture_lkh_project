@@ -1,0 +1,903 @@
+{
+  "datasets": [
+    {
+      "name": "1b58e57a",
+      "displayName": "fact_farm_performance",
+      "config": {
+        "version": "1.1",
+        "source": "agriculture_lkh_dev.gold.fact_farm_performance",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "b05ff9cd",
+      "displayName": "total_yield_by_crop",
+      "config": {
+        "version": "1.1",
+        "source": "agriculture_lkh_dev.gold.total_yield_by_crop",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "f432a702",
+      "displayName": "total_yield_by_crop_season",
+      "config": {
+        "version": "1.1",
+        "source": "agriculture_lkh_dev.gold.total_yield_by_crop_season",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "3d249ff1",
+      "displayName": "total_water_usage_by_crop",
+      "config": {
+        "version": "1.1",
+        "source": "agriculture_lkh_dev.gold.total_water_usage_by_crop",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "9db4e356",
+      "displayName": "total_water_usage_by_irrigation",
+      "config": {
+        "version": "1.1",
+        "source": "agriculture_lkh_dev.gold.total_water_usage_by_irrigation",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "3c7701c7",
+      "displayName": "fertilizer_by_crop",
+      "config": {
+        "version": "1.1",
+        "source": "agriculture_lkh_dev.gold.fertilizer_by_crop",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "2b3a6f50",
+      "displayName": "pesticides_by_crop",
+      "config": {
+        "version": "1.1",
+        "source": "agriculture_lkh_dev.gold.pesticides_by_crop",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "2884b89e",
+      "displayName": "Report",
+      "layout": [
+        {
+          "widget": {
+            "name": "84b2aaff",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1b58e57a",
+                  "fields": [
+                    {
+                      "name": "countdistinct(crop_key)",
+                      "expression": "COUNT(DISTINCT `crop_key`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": true,
+                "description": {
+                  "value": "Numberof Crops",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(crop_key)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "eb14e021",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1b58e57a",
+                  "fields": [
+                    {
+                      "name": "sum(yield_tons)",
+                      "expression": "SUM(`yield_tons`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": true,
+                "description": {
+                  "value": "Total ton of yield",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(yield_tons)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 1,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "8e83b2be",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b05ff9cd",
+                  "fields": [
+                    {
+                      "name": "total_yield_tons",
+                      "expression": "`total_yield_tons`"
+                    },
+                    {
+                      "name": "crop_type",
+                      "expression": "`crop_type`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": false,
+                "showDescription": true,
+                "title": {
+                  "value": "Visualization 1",
+                  "fields": []
+                },
+                "description": {
+                  "value": "Total Yield per Crop",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "total_yield_tons",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "crop_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 1,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "yield_by_crop_season_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "f432a702",
+                  "fields": [
+                    {
+                      "name": "season",
+                      "expression": "`season`"
+                    },
+                    {
+                      "name": "crop_type",
+                      "expression": "`crop_type`"
+                    },
+                    {
+                      "name": "total_yield_tons",
+                      "expression": "`total_yield_tons`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Yield by Crop Type and Season",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "crop_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "total_yield_tons",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "season",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "f388bde0",
+            "spec": {
+              "widgetType": "text",
+              "version": 1,
+              "encodings": {
+                "text": {
+                  "lines": [
+                    "# <span style=\"text-align:center;display:block;\">CROP</span>"
+                  ],
+                  "fields": []
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "d2860886",
+            "spec": {
+              "widgetType": "text",
+              "version": 1,
+              "encodings": {
+                "text": {
+                  "lines": [
+                    "# <span style=\"text-align:center;display:block\">Water Consumption</span>"
+                  ],
+                  "fields": []
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "68ea2e9a",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1b58e57a",
+                  "fields": [
+                    {
+                      "name": "sum(water_usage_cubic_meters)",
+                      "expression": "SUM(`water_usage_cubic_meters`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": true,
+                "description": {
+                  "value": "Total Water Usage",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(water_usage_cubic_meters)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 7,
+            "y": 9,
+            "width": 5,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "a5e07d33",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3d249ff1",
+                  "fields": [
+                    {
+                      "name": "total_water_usage",
+                      "expression": "`total_water_usage`"
+                    },
+                    {
+                      "name": "crop_type",
+                      "expression": "`crop_type`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": true,
+                "description": {
+                  "value": "water usage by crop",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "total_water_usage",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "crop_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 7,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "e0efd6f7",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9db4e356",
+                  "fields": [
+                    {
+                      "name": "total_water_usage",
+                      "expression": "`total_water_usage`"
+                    },
+                    {
+                      "name": "irrigation_type",
+                      "expression": "`irrigation_type`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": true,
+                "description": {
+                  "value": "Water Usage by Irrigation",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "total_water_usage",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "irrigation_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 7,
+            "y": 11,
+            "width": 5,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "3d16472c",
+            "spec": {
+              "widgetType": "text",
+              "version": 1,
+              "encodings": {
+                "text": {
+                  "lines": [
+                    "# <span style=\"text-align:center;display:block;\">Fertilizer and Pecticides </span>"
+                  ],
+                  "fields": []
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 16,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "270709bf",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2b3a6f50",
+                  "fields": [
+                    {
+                      "name": "total_pesticide_used_kg",
+                      "expression": "`total_pesticide_used_kg`"
+                    },
+                    {
+                      "name": "crop_type",
+                      "expression": "`crop_type`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": false,
+                "showDescription": true,
+                "title": {
+                  "value": "Visualization 9",
+                  "fields": []
+                },
+                "description": {
+                  "value": "Pesticides by crop",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "layout": "stack"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "total_pesticide_used_kg",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "title": "Pesticides kg"
+                  }
+                },
+                "color": {
+                  "fieldName": "crop_type",
+                  "legend": {
+                    "hide": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 17,
+            "width": 4,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "8a4acb81",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1b58e57a",
+                  "fields": [
+                    {
+                      "name": "sum(pesticide_used_kg)",
+                      "expression": "SUM(`pesticide_used_kg`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": false,
+                "showDescription": true,
+                "title": {
+                  "value": "Visualization 8",
+                  "fields": []
+                },
+                "description": {
+                  "value": "Pesticide Used kg",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(pesticide_used_kg)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 20,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "6b7d2e4c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1b58e57a",
+                  "fields": [
+                    {
+                      "name": "sum(fertilizer_used_tons)",
+                      "expression": "SUM(`fertilizer_used_tons`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": false,
+                "showDescription": true,
+                "title": {
+                  "value": "Visualization 10",
+                  "fields": []
+                },
+                "description": {
+                  "value": "Fertilizer Used tons",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(fertilizer_used_tons)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 17,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "b39592ee",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3c7701c7",
+                  "fields": [
+                    {
+                      "name": "total_fertilizer_used_tons",
+                      "expression": "`total_fertilizer_used_tons`"
+                    },
+                    {
+                      "name": "crop_type",
+                      "expression": "`crop_type`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": false,
+                "showDescription": true,
+                "title": {
+                  "value": "Visualization 11",
+                  "fields": []
+                },
+                "description": {
+                  "value": "Fertilizer used by crop",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "layout": "stack"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "total_fertilizer_used_tons",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "title": "Fertilizer tons"
+                  }
+                },
+                "color": {
+                  "fieldName": "crop_type",
+                  "legend": {
+                    "hide": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 17,
+            "width": 4,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
