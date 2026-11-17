@@ -29,7 +29,7 @@ targets:
       # We always use /Users/abhijeet.waghmare@ltts.com for all resources to make sure we only have a single copy.
       root_path: /Users/abhijeet.waghmare@ltts.com/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: agriculture_lkh_dev
+      catalog: agriculture_lkh_prod
     # run_as:
     #   # This runs as abhijeet.waghmare@ltts.com in production. We could also use a service principal here,
     #   # see https://docs.databricks.com/dev-tools/bundles/permissions.html.

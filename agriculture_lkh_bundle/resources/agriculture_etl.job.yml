@@ -1,0 +1,76 @@
+resources:
+  jobs:
+    agriculture_lkh_etl_refresh:
+      name: "agriculture_lkh_etl_refresh"
+      tasks:
+        - task_key: bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/bronze/data_ingestion.ipynb
+            source: WORKSPACE
+        - task_key: silver
+          depends_on:
+            - task_key: bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/silver/data_transformation.ipynb
+            source: WORKSPACE
+        - task_key: dim_crop
+          depends_on:
+            - task_key: silver
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/gold/dim_crop.ipynb
+            source: WORKSPACE
+        - task_key: dim_irrigation
+          depends_on:
+            - task_key: silver
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/gold/dim_irrigation.ipynb
+            source: WORKSPACE
+        - task_key: dim_season
+          depends_on:
+            - task_key: silver
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/gold/dim_season.ipynb
+            source: WORKSPACE
+        - task_key: dim_soil
+          depends_on:
+            - task_key: silver
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/gold/dim_soil.ipynb
+            source: WORKSPACE
+        - task_key: fact_crop_performance
+          depends_on:
+            - task_key: dim_crop
+            - task_key: dim_irrigation
+            - task_key: dim_season
+            - task_key: dim_soil
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/gold/fact_farm_performance.ipynb
+            source: WORKSPACE
+        - task_key: bussiness_queries
+          depends_on:
+            - task_key: fact_crop_performance
+          notebook_task:
+            notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/business_kpi/aggerates_queries.ipynb
+            source: WORKSPACE
+        - task_key: farm_analytics
+          depends_on:
+            - task_key: bussiness_queries
+          dashboard_task:
+            subscription:
+              subscribers:
+                - user_name: abhijeet.waghmare@ltts.com
+              attachment: {}
+            warehouse_id: 3bbae399a33901db
+            dashboard_id: 01f1e2790f881bd7994148b9c114160b
+      parameters:
+        - name: catalog
+          default: ${var.catalog}
+        - name: ingestion_date
+          default: "{{job.start_time.iso_datetime}}"
+        - name: source_data
+          default: s3://af-data-store/landing/
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "6"
+      performance_target: PERFORMANCE_OPTIMIZED
