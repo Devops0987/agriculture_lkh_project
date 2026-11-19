@@ -30,8 +30,9 @@ jobs:
 
       # Deploy the bundle to the "prod" target as defined
       # in the bundle's settings file.
-      - run: databricks bundle deploy
+      - run: databricks bundle deploy -t prod
         working-directory: agriculture_lkh_bundle
         env:
           DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.HOST_URL }}
           DATABRICKS_BUNDLE_ENV: prod
