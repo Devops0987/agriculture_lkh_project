@@ -71,3 +71,7 @@ bronze_df.count()
 
 # COMMAND ----------
 
+print("test")
+
+# COMMAND ----------
+
