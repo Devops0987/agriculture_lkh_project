@@ -3,7 +3,7 @@
 # [tool.databricks.environment]
 # environment_version = "6"
 # ///
-from pyspark.sql.functions import  col,lit
+from pyspark.sql.functions import  col, lit
 
 # COMMAND ----------
 
