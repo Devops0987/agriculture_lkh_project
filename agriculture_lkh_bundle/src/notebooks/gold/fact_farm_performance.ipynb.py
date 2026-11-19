@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 from pyspark.sql.functions import col, lit
 
 
@@ -67,7 +71,7 @@ display(fact_df)
 # COMMAND ----------
 
 spark.sql(f"""
-    CREATE TABLE IF NOT EXISTS {catalog_name}.gold.Fact_farm_performance(
+    CREATE OR REPLACE TABLE {catalog_name}.gold.Fact_farm_performance(
     farm_id STRING,
     crop_key BIGINT,
     irrigation_key BIGINT,
@@ -90,7 +94,7 @@ spark.sql(f"""
 
 # COMMAND ----------
 
-fact_df.write.mode("overwrite").saveAsTable(f"{catalog_name}.gold.Fact_farm_performance")
+fact_df.write.mode("append").saveAsTable(f"{catalog_name}.gold.Fact_farm_performance")
 
 # COMMAND ----------
 

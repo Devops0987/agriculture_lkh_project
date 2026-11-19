@@ -46,7 +46,7 @@ resources:
           notebook_task:
             notebook_path: /Workspace/Users/abhijeet.waghmare@ltts.com/agriculture_lkh_project/agriculture_lkh_bundle/src/notebooks/gold/fact_farm_performance.ipynb
             source: WORKSPACE
-        - task_key: bussiness_queries
+        - task_key: business_queries
           depends_on:
             - task_key: fact_crop_performance
           notebook_task:
@@ -54,14 +54,14 @@ resources:
             source: WORKSPACE
         - task_key: farm_analytics
           depends_on:
-            - task_key: bussiness_queries
+            - task_key: business_queries
           dashboard_task:
             subscription:
               subscribers:
                 - user_name: abhijeet.waghmare@ltts.com
               attachment: {}
             warehouse_id: 3bbae399a33901db
-            dashboard_id: 01f1e2790f881bd7994148b9c114160b
+            dashboard_id: 01f1e2b5761e1488b583256b83e6c889
       parameters:
         - name: catalog
           default: ${var.catalog}

@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 from pyspark.sql.functions import  col,lit
 
 # COMMAND ----------
@@ -26,61 +30,43 @@ spark.sql(f"CREATE VOLUME IF NOT EXISTS {catalog_name}.bronze.metadata")
 
 # COMMAND ----------
 
-chk_point = f"/Volumes/{catalog_name}/bronze/metadata/checkpoint/"
-schema_path = f"/Volumes/{catalog_name}/bronze/metadata/"
-
-
-# COMMAND ----------
-
-df = (spark.readStream.format("cloudFiles")
-    .option("cloudFiles.format","csv")
-    .option("cloudFiles.schemaLocation",schema_path)
-    .option("cloudFiles.schemaEvolutionMode","addNewColumns")
-    .option("cloudFiles.inferColumnTypes", "true")
+df = (
+    spark.read.format("csv")
     .option("header", "true")
-    .load(source_data)
+    .option("inferSchema", "true")
+    .option("sep", ",")
+    .option("mode", "PERMISSIVE") # Options: PERMISSIVE, DROPMALFORMED, FAILFAST
+    .option("columnNameOfCorruptRecord", "_corrupt_record")
+    .load(f"{source_data}*.csv") 
 )
-
-
 
 # COMMAND ----------
 
 df = (
     df.withColumnRenamed("Farm_Area(acres)", "Farm_Area_acres")
-      .withColumnRenamed("Fertilizer_Used(tons)", "Fertilizer_Used_tons")
-      .withColumnRenamed("Pesticide_Used(kg)", "Pesticide_Used_kg")
-      .withColumnRenamed("Yield(tons)", "Yield_tons")
-      .withColumnRenamed("Water_Usage(cubic meters)", "Water_Usage_cubic_meters")
-)
-
-# COMMAND ----------
-
-df = (
-    df.withColumn("ingestion_date", lit(ingestion_date).cast("timestamp"))
+    .withColumnRenamed("Fertilizer_Used(tons)", "Fertilizer_Used_tons")
+    .withColumnRenamed("Pesticide_Used(kg)", "Pesticide_Used_kg")
+    .withColumnRenamed("Yield(tons)", "Yield_tons")
+    .withColumnRenamed("Water_Usage(cubic meters)", "Water_Usage_cubic_meters")
+    .withColumn("ingestion_date", lit(ingestion_date).cast("timestamp"))
     .withColumn("source_file", col("_metadata.file_name"))
 )
 
+# COMMAND ----------
+
+df.show()
 
 # COMMAND ----------
 
-query = (
-df.writeStream
-  .format("delta")
-  .option("delta.columnMapping.mode", "name")
-  .option("checkpointLocation", chk_point)
-  .option("mergeSchema", "true")
-  .trigger(availableNow=True)
-  .toTable(f"{catalog_name}.bronze.farm_raw")
-  )
-
-query.awaitTermination()
-
+df.write.mode("append").option("delta.columnMapping.mode", "name").option("mergeSchema", "true").saveAsTable(f"{catalog_name}.bronze.farm_raw")
 
 # COMMAND ----------
 
-bronze_df = spark.read.table(f"{catalog_name}.bronze.farm_raw").filter(
-    f"ingestion_date = '{ingestion_date}'"
-)
+bronze_df = spark.read.table(f"{catalog_name}.bronze.farm_raw")
+bronze_df.show()
+
+# COMMAND ----------
+
 bronze_df.count()
 
 # COMMAND ----------

@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 from pyspark.sql.functions import col, lit
 from pyspark.sql.functions import ucase, trim, initcap, regexp_replace, when
 from pyspark.sql.window import Window
@@ -15,6 +19,7 @@ dbutils.widgets.text("ingestion_date", "", "Ingestion date")
 
 catalog_name = dbutils.widgets.get("catalog")
 ingestion_date = dbutils.widgets.get("ingestion_date")
+print(ingestion_date)
 
 # COMMAND ----------
 
@@ -24,10 +29,8 @@ spark.sql(f"USE SCHEMA silver")
 
 # COMMAND ----------
 
+df = spark.read.table(f"{catalog_name}.bronze.farm_raw")
 
-df = spark.read.table(f"{catalog_name}.bronze.farm_raw").filter(
-    col("ingestion_date") == lit(ingestion_date).cast("timestamp")
-)
 
 # COMMAND ----------
 
@@ -120,8 +123,8 @@ dq_checked_df = standardise_text_df.withColumn(
         & (col("fertilizer_used_tons") >= 0)
         & (col("pesticide_used_kg") >= 0)
         & (col("yield_tons") > 0)
-        & (col("water_usage_cubic_meters") > 0)
-        & (col("_rescued_data").isNull()),
+        & (col("water_usage_cubic_meters") > 0),
+        # & (col("_rescued_data").isNull()),
         lit(False),
     ).otherwise(lit(True)),
 )
@@ -223,3 +226,6 @@ from pyspark.sql.functions import current_timestamp
 # COMMAND ----------
 
 silver_df.count()
+
+# COMMAND ----------
+
