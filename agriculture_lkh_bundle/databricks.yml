@@ -14,7 +14,7 @@ variables:
 targets:
   # The 'dev' target, for development purposes. This target is the default.
   dev:
-    mode: development
+    # mode: development
     # presets:
     #   name_prefix: dev_
 
