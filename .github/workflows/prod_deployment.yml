@@ -35,4 +35,4 @@ jobs:
         env:
           DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
           DATABRICKS_HOST: ${{ secrets.HOST_URL }}
-          DATABRICKS_BUNDLE_ENV: prod
+          
