@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 dbutils.widgets.text("catalog", "agriculture_lkh_dev", "Catalog")
 catalog_name = dbutils.widgets.get("catalog")
 
